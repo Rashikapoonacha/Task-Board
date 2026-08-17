@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>_XCCurrentVersionName</key>
-	<string>Task_Board.xcdatamodel</string>
+	<string>TaskBoardModel.xcdatamodel</string>
 </dict>
 </plist>

@@ -1,13 +1,6 @@
-//
-//  Task_BoardUITestsLaunchTests.swift
-//  Task BoardUITests
-//
-//  Created by Rashika Poonacha on 17/08/26.
-//
-
 import XCTest
 
-final class Task_BoardUITestsLaunchTests: XCTestCase {
+final class TaskBoardUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

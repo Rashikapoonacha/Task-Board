@@ -1,13 +1,6 @@
-//
-//  Task_BoardUITests.swift
-//  Task BoardUITests
-//
-//  Created by Rashika Poonacha on 17/08/26.
-//
-
 import XCTest
 
-final class Task_BoardUITests: XCTestCase {
+final class TaskBoardUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
