@@ -10,6 +10,7 @@ struct RemoteTaskDTO: Equatable, Codable, Sendable {
     var updatedAt: Date
     var isDeleted: Bool
     var isArchived: Bool
+    var subtasks: [SubtaskItem]
     /// Last remote `updatedAt` this device had observed when the local mutation was made.
     /// Not persisted to Firestore.
     var baseRemoteUpdatedAt: Date? = nil
@@ -49,6 +50,7 @@ enum RemoteTaskMapping {
 
         let isDeleted = data["deleted"] as? Bool ?? false
         let isArchived = data["archived"] as? Bool ?? false
+        let subtasks = parseSubtasks(data["subtasks"])
         return RemoteTaskDTO(
             id: id,
             title: title,
@@ -58,7 +60,35 @@ enum RemoteTaskMapping {
             createdAt: createdAt,
             updatedAt: updatedAt,
             isDeleted: isDeleted,
-            isArchived: isArchived
+            isArchived: isArchived,
+            subtasks: subtasks
         )
+    }
+
+    static func parseSubtasks(_ value: Any?) -> [SubtaskItem] {
+        guard let array = value as? [[String: Any]] else { return [] }
+        return array.compactMap { item in
+            guard
+                let idString = item["id"] as? String,
+                let id = UUID(uuidString: idString),
+                let title = item["title"] as? String,
+                let sortOrder = intValue(item["sortOrder"])
+            else {
+                return nil
+            }
+            let isComplete = item["isComplete"] as? Bool ?? false
+            return SubtaskItem(id: id, title: title, isComplete: isComplete, sortOrder: sortOrder)
+        }
+    }
+
+    static func subtasksPayload(_ subtasks: [SubtaskItem]) -> [[String: Any]] {
+        subtasks.map { item in
+            [
+                "id": item.id.uuidString,
+                "title": item.title,
+                "isComplete": item.isComplete,
+                "sortOrder": item.sortOrder
+            ]
+        }
     }
 }

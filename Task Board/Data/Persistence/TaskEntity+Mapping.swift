@@ -20,7 +20,8 @@ extension TaskEntity {
             createdAt: createdAt,
             updatedAt: updatedAt,
             syncStatus: syncStatus,
-            isArchived: archived
+            isArchived: archived,
+            subtasks: SubtaskStorage.decode(from: subtasksData)
         )
     }
 
@@ -41,6 +42,7 @@ extension TaskEntity {
             updatedAt: updatedAt,
             isDeleted: tombstoned,
             isArchived: archived,
+            subtasks: SubtaskStorage.decode(from: subtasksData),
             baseRemoteUpdatedAt: remoteUpdatedAt
         )
     }
@@ -54,6 +56,7 @@ extension TaskEntity {
         remoteUpdatedAt = dto.updatedAt
         tombstoned = dto.isDeleted
         archived = dto.isArchived
+        subtasksData = SubtaskStorage.encode(dto.subtasks)
         syncStatus = SyncStatus.synced.rawValue
     }
 }

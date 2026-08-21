@@ -46,6 +46,10 @@ final class TaskRepository: TaskRepositoryProtocol {
     }
 
     func createTask(title: String, description: String) throws -> TaskItem {
+        try createTask(title: title, description: description, subtasks: [])
+    }
+
+    func createTask(title: String, description: String, subtasks: [SubtaskItem]) throws -> TaskItem {
         let now = Date()
         let taskId = UUID()
         var created: TaskItem!
@@ -64,6 +68,7 @@ final class TaskRepository: TaskRepositoryProtocol {
             entity.syncStatus = SyncStatus.pending.rawValue
             entity.tombstoned = false
             entity.archived = false
+            entity.subtasksData = SubtaskStorage.encode(subtasks)
             try self.outbox.enqueue(taskId: taskId, kind: .create)
             guard let item = entity.toTaskItem() else {
                 throw RepositoryError.mappingFailed
@@ -76,10 +81,17 @@ final class TaskRepository: TaskRepositoryProtocol {
     }
 
     func updateTask(id: UUID, title: String, description: String) throws {
+        try updateTask(id: id, title: title, description: description, subtasks: nil)
+    }
+
+    func updateTask(id: UUID, title: String, description: String, subtasks: [SubtaskItem]?) throws {
         try performWrite { ctx in
             let entity = try self.taskEntity(id: id, in: ctx)
             entity.title = title
             entity.taskDescription = description
+            if let subtasks {
+                entity.subtasksData = SubtaskStorage.encode(subtasks)
+            }
             entity.updatedAt = Date()
             entity.syncStatus = SyncStatus.pending.rawValue
             try self.enqueueMutation(for: entity, in: ctx)

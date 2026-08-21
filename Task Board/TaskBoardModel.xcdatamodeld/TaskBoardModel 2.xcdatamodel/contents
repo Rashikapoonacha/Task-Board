@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
+    <entity name="SyncMetadataEntity" representedClassName="SyncMetadataEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="lastPullAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="SyncOperationEntity" representedClassName="SyncOperationEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="attemptCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="enqueuedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="kind" attributeType="String"/>
+        <attribute name="lastError" optional="YES" attributeType="String"/>
+        <attribute name="nextRetryAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="taskId" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="TaskEntity" representedClassName="TaskEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="archived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="subtasksData" optional="YES" attributeType="Binary"/>
+        <attribute name="tombstoned" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="remoteUpdatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="sortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="status" attributeType="String"/>
+        <attribute name="syncStatus" attributeType="String"/>
+        <attribute name="taskDescription" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <elements>
+        <element name="SyncMetadataEntity" positionX="-54" positionY="99" width="128" height="59"/>
+        <element name="SyncOperationEntity" positionX="117" positionY="9" width="128" height="134"/>
+        <element name="TaskEntity" positionX="-63" positionY="-18" width="128" height="209"/>
+    </elements>
+</model>

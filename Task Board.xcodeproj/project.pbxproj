@@ -25,6 +25,7 @@
 		A11E1A7E1A7E000000000001 /* PullWatermark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11E1A7E1A7E000000000002 /* PullWatermark.swift */; };
 		A11E1A7E1A7E000000000003 /* RemoteWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11E1A7E1A7E000000000004 /* RemoteWrite.swift */; };
 		A11E1A7E1A7E000000000010 /* ArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11E1A7E1A7E000000000011 /* ArchiveView.swift */; };
+		A11E1A7E1A7E000000000020 /* SubtaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11E1A7E1A7E000000000021 /* SubtaskItem.swift */; };
 		A8453583957E4F78BCC587CE /* SyncStatusBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B95E98067F4763AFEEA04F /* SyncStatusBanner.swift */; };
 		B0DCDC0AF66E408881A99A61 /* SyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA390BE766D4E2696096AE6 /* SyncStatus.swift */; };
 		B615FBA8162348F3BB42E90D /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE747F8E8E645029560D097 /* TaskStatus.swift */; };
@@ -82,6 +83,8 @@
 		A11E1A7E1A7E000000000002 /* PullWatermark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullWatermark.swift; sourceTree = "<group>"; };
 		A11E1A7E1A7E000000000004 /* RemoteWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteWrite.swift; sourceTree = "<group>"; };
 		A11E1A7E1A7E000000000011 /* ArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveView.swift; sourceTree = "<group>"; };
+		A11E1A7E1A7E000000000021 /* SubtaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskItem.swift; sourceTree = "<group>"; };
+		A11E1A7E1A7E000000000022 /* TaskBoardModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "TaskBoardModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		A75B83F40A4446E4A547483B /* SyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncOperation.swift; sourceTree = "<group>"; };
 		B3A8F5A53B554CDFABEEAC03 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
 		C8EEFC121D204534AEF858AF /* SyncSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncSnapshot.swift; sourceTree = "<group>"; };
@@ -270,6 +273,7 @@
 				C8EEFC121D204534AEF858AF /* SyncSnapshot.swift */,
 				3BA390BE766D4E2696096AE6 /* SyncStatus.swift */,
 				9CD3051CE4F44650ABF7983B /* TaskItem.swift */,
+				A11E1A7E1A7E000000000021 /* SubtaskItem.swift */,
 				6DE747F8E8E645029560D097 /* TaskStatus.swift */,
 			);
 			path = Models;
@@ -438,6 +442,7 @@
 				B89CC7855A1A4C8298604BD2 /* SyncSnapshot.swift in Sources */,
 				B0DCDC0AF66E408881A99A61 /* SyncStatus.swift in Sources */,
 				1F685FAF2FE946F495B80A06 /* TaskItem.swift in Sources */,
+				A11E1A7E1A7E000000000020 /* SubtaskItem.swift in Sources */,
 				B615FBA8162348F3BB42E90D /* TaskStatus.swift in Sources */,
 				61907359BB784FCDB87F26A5 /* OutboxStoreProtocol.swift in Sources */,
 				DEF812FF8BF34156B2CE9718 /* TaskRemoteServiceProtocol.swift in Sources */,
@@ -839,8 +844,9 @@
 			isa = XCVersionGroup;
 			children = (
 				E3477F303032E6AE00A8328E /* TaskBoardModel.xcdatamodel */,
+				A11E1A7E1A7E000000000022 /* TaskBoardModel 2.xcdatamodel */,
 			);
-			currentVersion = E3477F303032E6AE00A8328E /* TaskBoardModel.xcdatamodel */;
+			currentVersion = A11E1A7E1A7E000000000022 /* TaskBoardModel 2.xcdatamodel */;
 			path = TaskBoardModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

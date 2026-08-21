@@ -139,7 +139,8 @@ struct ConflictResolverTests {
             createdAt: Date(),
             updatedAt: updatedAt,
             syncStatus: syncStatus,
-            isArchived: isArchived
+            isArchived: isArchived,
+            subtasks: []
         )
     }
 
@@ -153,7 +154,8 @@ struct ConflictResolverTests {
             createdAt: Date(),
             updatedAt: updatedAt,
             isDeleted: false,
-            isArchived: isArchived
+            isArchived: isArchived,
+            subtasks: []
         )
     }
 }

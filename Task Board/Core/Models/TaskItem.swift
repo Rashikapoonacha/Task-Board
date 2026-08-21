@@ -10,4 +10,5 @@ struct TaskItem: Identifiable, Equatable, Sendable {
     var updatedAt: Date
     var syncStatus: SyncStatus
     var isArchived: Bool
+    var subtasks: [SubtaskItem]
 }

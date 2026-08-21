@@ -38,6 +38,10 @@ final class PersistenceController {
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
+        container.persistentStoreDescriptions.forEach { description in
+            description.shouldMigrateStoreAutomatically = true
+            description.shouldInferMappingModelAutomatically = true
+        }
         container.loadPersistentStores { _, error in
             if let error {
                 fatalError("Unresolved Core Data error: \(error)")

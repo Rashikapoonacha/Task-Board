@@ -107,6 +107,7 @@ nonisolated final class FirestoreTaskService: TaskRemoteServiceProtocol, @unchec
             "updatedAt": Timestamp(date: task.updatedAt),
             "deleted": task.isDeleted,
             "archived": task.isArchived,
+            "subtasks": RemoteTaskMapping.subtasksPayload(task.subtasks),
             "idempotencyKey": idempotencyKey.uuidString
         ]
     }

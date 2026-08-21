@@ -142,6 +142,7 @@ struct ArchiveSyncTests {
             isArchived: false,
             baseRemoteUpdatedAt: base
         )
+        remote.failUpdate = true
 
         await env.engine.syncNow(forceWhenOffline: true)
 
