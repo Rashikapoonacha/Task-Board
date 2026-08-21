@@ -60,12 +60,12 @@ final class BoardViewModel {
         syncTask?.cancel()
     }
 
-    func createTask(title: String, description: String) {
-        try? repository.createTask(title: title, description: description)
+    func createTask(title: String, description: String, subtasks: [SubtaskItem] = []) {
+        try? repository.createTask(title: title, description: description, subtasks: subtasks)
     }
 
-    func updateTask(id: UUID, title: String, description: String) {
-        try? repository.updateTask(id: id, title: title, description: description)
+    func updateTask(id: UUID, title: String, description: String, subtasks: [SubtaskItem]) {
+        try? repository.updateTask(id: id, title: title, description: description, subtasks: subtasks)
     }
 
     func deleteTask(id: UUID) {

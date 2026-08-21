@@ -84,16 +84,21 @@ struct BoardView: View {
             }
             .sheet(isPresented: $showingCreateForm) {
                 TaskFormView(
-                    viewModel: TaskFormViewModel { title, description in
-                        viewModel.createTask(title: title, description: description)
+                    viewModel: TaskFormViewModel { title, description, subtasks in
+                        viewModel.createTask(title: title, description: description, subtasks: subtasks)
                         showingCreateForm = false
                     }
                 )
             }
             .sheet(item: $editingTask) { task in
                 TaskFormView(
-                    viewModel: TaskFormViewModel(task: task) { title, description in
-                        viewModel.updateTask(id: task.id, title: title, description: description)
+                    viewModel: TaskFormViewModel(task: task) { title, description, subtasks in
+                        viewModel.updateTask(
+                            id: task.id,
+                            title: title,
+                            description: description,
+                            subtasks: subtasks
+                        )
                         editingTask = nil
                     }
                 )
