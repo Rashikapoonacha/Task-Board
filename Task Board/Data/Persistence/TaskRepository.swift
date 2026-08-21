@@ -63,6 +63,7 @@ final class TaskRepository: TaskRepositoryProtocol {
             entity.updatedAt = now
             entity.syncStatus = SyncStatus.pending.rawValue
             entity.tombstoned = false
+            entity.archived = false
             try self.outbox.enqueue(taskId: taskId, kind: .create)
             guard let item = entity.toTaskItem() else {
                 throw RepositoryError.mappingFailed
@@ -139,6 +140,34 @@ final class TaskRepository: TaskRepositoryProtocol {
 
             let remaining = try self.activeTasks(in: status, context: ctx)
             self.renumber(tasks: remaining)
+        }
+        notifyMutation()
+    }
+
+    func archiveTask(id: UUID) throws {
+        try performWrite { ctx in
+            let entity = try self.taskEntity(id: id, in: ctx)
+            let status = TaskStatus(rawValue: entity.status ?? "") ?? .todo
+            entity.archived = true
+            entity.updatedAt = Date()
+            entity.syncStatus = SyncStatus.pending.rawValue
+            try self.enqueueMutation(for: entity, in: ctx)
+
+            let remaining = try self.activeTasks(in: status, context: ctx)
+            self.renumber(tasks: remaining)
+        }
+        notifyMutation()
+    }
+
+    func unarchiveTask(id: UUID) throws {
+        try performWrite { ctx in
+            let entity = try self.taskEntity(id: id, in: ctx)
+            let status = TaskStatus(rawValue: entity.status ?? "") ?? .todo
+            entity.archived = false
+            entity.sortOrder = Int32(try self.activeTasks(in: status, context: ctx).count)
+            entity.updatedAt = Date()
+            entity.syncStatus = SyncStatus.pending.rawValue
+            try self.enqueueMutation(for: entity, in: ctx)
         }
         notifyMutation()
     }
@@ -285,7 +314,7 @@ final class TaskRepository: TaskRepositoryProtocol {
     private func activeTasks(in status: TaskStatus, context: NSManagedObjectContext) throws -> [TaskEntity] {
         let request = TaskEntity.fetchRequest()
         request.predicate = NSPredicate(
-            format: "tombstoned == NO AND status == %@",
+            format: "tombstoned == NO AND archived == NO AND status == %@",
             status.rawValue
         )
         request.sortDescriptors = [NSSortDescriptor(key: "sortOrder", ascending: true)]

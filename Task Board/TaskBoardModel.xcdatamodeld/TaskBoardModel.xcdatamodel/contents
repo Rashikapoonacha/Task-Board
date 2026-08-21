@@ -14,6 +14,7 @@
         <attribute name="taskId" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="TaskEntity" representedClassName="TaskEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="archived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="tombstoned" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>

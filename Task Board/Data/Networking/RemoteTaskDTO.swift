@@ -9,6 +9,7 @@ struct RemoteTaskDTO: Equatable, Codable, Sendable {
     let createdAt: Date
     var updatedAt: Date
     var isDeleted: Bool
+    var isArchived: Bool
     /// Last remote `updatedAt` this device had observed when the local mutation was made.
     /// Not persisted to Firestore.
     var baseRemoteUpdatedAt: Date? = nil
@@ -47,6 +48,7 @@ enum RemoteTaskMapping {
         }
 
         let isDeleted = data["deleted"] as? Bool ?? false
+        let isArchived = data["archived"] as? Bool ?? false
         return RemoteTaskDTO(
             id: id,
             title: title,
@@ -55,7 +57,8 @@ enum RemoteTaskMapping {
             sortOrder: sortOrder,
             createdAt: createdAt,
             updatedAt: updatedAt,
-            isDeleted: isDeleted
+            isDeleted: isDeleted,
+            isArchived: isArchived
         )
     }
 }

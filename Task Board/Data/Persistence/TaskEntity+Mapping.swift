@@ -19,7 +19,8 @@ extension TaskEntity {
             sortOrder: Int(sortOrder),
             createdAt: createdAt,
             updatedAt: updatedAt,
-            syncStatus: syncStatus
+            syncStatus: syncStatus,
+            isArchived: archived
         )
     }
 
@@ -39,6 +40,7 @@ extension TaskEntity {
             createdAt: createdAt,
             updatedAt: updatedAt,
             isDeleted: tombstoned,
+            isArchived: archived,
             baseRemoteUpdatedAt: remoteUpdatedAt
         )
     }
@@ -51,6 +53,7 @@ extension TaskEntity {
         updatedAt = dto.updatedAt
         remoteUpdatedAt = dto.updatedAt
         tombstoned = dto.isDeleted
+        archived = dto.isArchived
         syncStatus = SyncStatus.synced.rawValue
     }
 }

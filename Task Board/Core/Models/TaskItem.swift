@@ -9,4 +9,5 @@ struct TaskItem: Identifiable, Equatable, Sendable {
     let createdAt: Date
     var updatedAt: Date
     var syncStatus: SyncStatus
+    var isArchived: Bool
 }

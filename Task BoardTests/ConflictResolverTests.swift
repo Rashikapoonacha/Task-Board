@@ -87,7 +87,49 @@ struct ConflictResolverTests {
         #expect(result == .applyRemote)
     }
 
-    private func makeTask(syncStatus: SyncStatus, updatedAt: Date = Date()) -> TaskItem {
+    @Test func pendingLocalArchiveKeepsLocalOverRemoteRestore() {
+        let local = makeTask(syncStatus: .pending, isArchived: true)
+        let remote = makeRemote(
+            updatedAt: Date().addingTimeInterval(3600),
+            isArchived: false
+        )
+        let result = ConflictResolver.resolve(
+            local: local,
+            localIsDeleted: false,
+            localSyncStatus: .pending,
+            localRemoteUpdatedAt: local.updatedAt,
+            hasPendingOutbox: false,
+            remote: remote
+        )
+        #expect(result == .keepLocal)
+    }
+
+    @Test func syncedRemoteRestoreAppliesOverLocalArchive() {
+        let local = makeTask(
+            syncStatus: .synced,
+            updatedAt: Date(timeIntervalSince1970: 100),
+            isArchived: true
+        )
+        let remote = makeRemote(
+            updatedAt: Date(timeIntervalSince1970: 200),
+            isArchived: false
+        )
+        let result = ConflictResolver.resolve(
+            local: local,
+            localIsDeleted: false,
+            localSyncStatus: .synced,
+            localRemoteUpdatedAt: local.updatedAt,
+            hasPendingOutbox: false,
+            remote: remote
+        )
+        #expect(result == .applyRemote)
+    }
+
+    private func makeTask(
+        syncStatus: SyncStatus,
+        updatedAt: Date = Date(),
+        isArchived: Bool = false
+    ) -> TaskItem {
         TaskItem(
             id: UUID(),
             title: "Local",
@@ -96,11 +138,12 @@ struct ConflictResolverTests {
             sortOrder: 0,
             createdAt: Date(),
             updatedAt: updatedAt,
-            syncStatus: syncStatus
+            syncStatus: syncStatus,
+            isArchived: isArchived
         )
     }
 
-    private func makeRemote(updatedAt: Date = Date()) -> RemoteTaskDTO {
+    private func makeRemote(updatedAt: Date = Date(), isArchived: Bool = false) -> RemoteTaskDTO {
         RemoteTaskDTO(
             id: UUID(),
             title: "Remote",
@@ -109,7 +152,8 @@ struct ConflictResolverTests {
             sortOrder: 0,
             createdAt: Date(),
             updatedAt: updatedAt,
-            isDeleted: false
+            isDeleted: false,
+            isArchived: isArchived
         )
     }
 }

@@ -27,6 +27,7 @@ final class PersistenceController {
             entity.updatedAt = Date()
             entity.syncStatus = SyncStatus.synced.rawValue
             entity.tombstoned = false
+            entity.archived = false
         }
         try? context.save()
         return controller

@@ -41,8 +41,17 @@ struct BoardView: View {
                                 onMoveToStatus: { newStatus in
                                     let destinationCount = viewModel.tasksByStatus[newStatus]?.count ?? 0
                                     viewModel.moveTask(id: task.id, to: newStatus, at: destinationCount)
+                                },
+                                onArchive: {
+                                    viewModel.archiveTask(id: task.id)
                                 }
                             )
+                            .swipeActions(edge: .leading) {
+                                Button("Archive") {
+                                    viewModel.archiveTask(id: task.id)
+                                }
+                                .tint(.indigo)
+                            }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button("Delete", role: .destructive) {
                                     viewModel.deleteTask(id: task.id)
@@ -57,6 +66,13 @@ struct BoardView: View {
             .navigationTitle("Task Board")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink {
+                        ArchiveView(viewModel: viewModel)
+                    } label: {
+                        Image(systemName: "archivebox")
+                    }
+                }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     EditButton()
                     Button {

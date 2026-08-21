@@ -76,6 +76,7 @@ enum TestTaskFactory {
         createdAt: Date = Date(timeIntervalSince1970: 1),
         updatedAt: Date,
         isDeleted: Bool = false,
+        isArchived: Bool = false,
         baseRemoteUpdatedAt: Date? = nil
     ) -> RemoteTaskDTO {
         RemoteTaskDTO(
@@ -87,6 +88,7 @@ enum TestTaskFactory {
             createdAt: createdAt,
             updatedAt: updatedAt,
             isDeleted: isDeleted,
+            isArchived: isArchived,
             baseRemoteUpdatedAt: baseRemoteUpdatedAt
         )
     }

@@ -4,6 +4,7 @@ struct TaskRowView: View {
     let task: TaskItem
     let onEdit: () -> Void
     let onMoveToStatus: (TaskStatus) -> Void
+    var onArchive: (() -> Void)? = nil
 
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
@@ -30,6 +31,11 @@ struct TaskRowView: View {
                 ForEach(TaskStatus.allCases.filter { $0 != task.status }, id: \.self) { status in
                     Button("Move to \(status.displayName)") {
                         onMoveToStatus(status)
+                    }
+                }
+                if let onArchive {
+                    Button("Archive") {
+                        onArchive()
                     }
                 }
             } label: {

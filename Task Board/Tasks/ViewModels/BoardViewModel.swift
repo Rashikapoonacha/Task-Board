@@ -4,8 +4,16 @@ import Observation
 @MainActor
 @Observable
 final class BoardViewModel {
-    private(set) var tasks: [TaskItem] = []
+    private(set) var allTasks: [TaskItem] = []
     private(set) var syncSnapshot = SyncSnapshot.initial
+
+    var tasks: [TaskItem] {
+        allTasks.filter { !$0.isArchived }
+    }
+
+    var archivedTasks: [TaskItem] {
+        allTasks.filter(\.isArchived)
+    }
 
     var tasksByStatus: [TaskStatus: [TaskItem]] {
         Dictionary(grouping: tasks, by: \.status)
@@ -32,7 +40,7 @@ final class BoardViewModel {
 
         tasksTask = Task {
             for await items in repository.observeTasks() {
-                tasks = items
+                allTasks = items
             }
         }
 
@@ -62,6 +70,14 @@ final class BoardViewModel {
 
     func deleteTask(id: UUID) {
         try? repository.deleteTask(id: id)
+    }
+
+    func archiveTask(id: UUID) {
+        try? repository.archiveTask(id: id)
+    }
+
+    func unarchiveTask(id: UUID) {
+        try? repository.unarchiveTask(id: id)
     }
 
     func moveTask(id: UUID, to status: TaskStatus, at index: Int) {

@@ -9,6 +9,8 @@ protocol TaskRepositoryProtocol: AnyObject {
     func moveTask(id: UUID, to status: TaskStatus, at index: Int) throws
     func reorderTasks(in status: TaskStatus, orderedIDs: [UUID]) throws
     func deleteTask(id: UUID) throws
+    func archiveTask(id: UUID) throws
+    func unarchiveTask(id: UUID) throws
 
     func applyRemoteTask(_ dto: RemoteTaskDTO) throws
     func markSynced(taskId: UUID, remoteUpdatedAt: Date) throws
